@@ -8,7 +8,7 @@ const _ = require("lodash");
 
 const app = express();
 
-mongoose.connect("mongodb+srv://krissdiamond:favour22@cluster0.tbgzn.mongodb.net/todolistDB", {useNewUrlParser: true});
+mongoose.connect(process.env.MONGO_SERVER, {useNewUrlParser: true});
 
 app.set('view engine', 'ejs');
 
@@ -56,7 +56,7 @@ app.get("/", function(req, res) {
           console.log(err);
         }else {
           console.log("Documents added successfully");
-        };
+        }
       });
       res.redirect("/");
     } else {
@@ -126,7 +126,7 @@ app.get("/", function(req, res) {
           }else {
             console.log("Documents removed successfully");
             res.redirect("/");
-          };
+          }
         });
       } else {
         List.findOneAndUpdate({name: listName}, {$pull: {items:{_id: checkedItemId}}}, (err, foundlist)=>{
@@ -148,7 +148,7 @@ app.post("/work", function(req, res){
 
 app.get("/about", function(req, res){
   res.render("about");
-})
+});
 
     });
 
